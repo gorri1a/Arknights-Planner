@@ -27,22 +27,30 @@ const selectedOperatorsSorted = computed(() => {
         return ops.sort(characterSort);
     }
 
-    const startsWith = ops.filter(character =>
-        localeStartsWith(
-            character.operator.name.toLowerCase(),
-            operatorFilter.value.toLowerCase()
-        )
-    ).sort(characterNameSort);
+        const startsWith = ops.filter(character =>
+            localeStartsWith(
+                character.operator.name.toLowerCase(),
+                operatorFilter.value.toLowerCase()
+            ) ||
+            (!!character.operator.jpName && localeStartsWith(
+                character.operator.jpName.toLowerCase(),
+                operatorFilter.value.toLowerCase()
+            ))
+        ).sort(characterNameSort);
 
     const contains = ops.filter(character =>
         !startsWith.includes(character) &&
-        localeContains(
+        (localeContains(
             character.operator.name.toLowerCase(),
             operatorFilter.value.toLowerCase()
-        )
+        ) ||
+         (!!character.operator.jpName && localeContains(
+             character.operator.jpName.toLowerCase(),
+             operatorFilter.value.toLowerCase()
+         )))
     ).sort(characterNameSort);
 
-    return [...startsWith, ...contains];
+           return [...startsWith, ...contains];
 });
 
 const sortCustomSort = () => {
