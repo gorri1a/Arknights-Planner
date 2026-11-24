@@ -31,68 +31,43 @@ const active = computed({
 });
 
 const moveOperator = (direction: 'up' | 'down') => {
-    const sortedList = props.sortedList.slice();
-    const operators = selectedOperators.value.slice();
+    const displayed = props.sortedList;
+    const index = displayed.findIndex(op => op === props.selectedOperator);
 
-    // doing this made it a little faster as all the computed properties were being recalculated when the array was being modified
-    selectedOperators.value = [];
-
-    let index = sortedList.findIndex(op => op === props.selectedOperator);
-
-    if (direction === 'up') {
-        if (index === 0) {
-            return;
-        }
-
-        const currentId = props.selectedOperator.operator.id;
-        const current = operators.find(op => op.operator.id === currentId);
-
-        const targetid = sortedList[index - 1].operator.id;
-        const target = operators.find(op => op.operator.id === targetid);
-
-        if (!target || !current) {
-            return;
-        }
-
-        if (target.sort === current.sort) {
-            current.sort--;
-        }
-        else {
-            const temp = target.sort;
-
-            target.sort = current.sort;
-            current.sort = temp;
-
-        }
-    } else {
-        if (index === sortedList.length - 1) {
-            return;
-        }
-
-        const currentId = props.selectedOperator.operator.id;
-        const current = operators.find(op => op.operator.id === currentId);
-
-        const targetid = sortedList[index + 1].operator.id;
-        const target = operators.find(op => op.operator.id === targetid);
-
-        if (!target || !current) {
-            return;
-        }
-
-        if (target.sort === current.sort) {
-            props.selectedOperator.sort++;
-        }
-        else {
-            const temp = target.sort;
-
-            target.sort = current.sort;
-            current.sort = temp;
-        }
+    if (index < 0) {
+        return;
     }
 
-    // put the array back in the store
-    selectedOperators.value = operators;
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+
+    if (targetIndex < 0 || targetIndex >= displayed.length) {
+        return;
+    }
+
+    const target = displayed[targetIndex];
+
+    // Work on the full ordering (including operators hidden by the Inactive filter),
+    // swap the two operators' positions, then renumber everyone's sort sequentially.
+    // This keeps every sort value unique, so one click always moves exactly one step.
+    const ordered = selectedOperators.value.slice().sort((a, b) => a.sort - b.sort);
+
+    const currentPos = ordered.indexOf(props.selectedOperator);
+    const targetPos = ordered.indexOf(target);
+
+    if (currentPos < 0 || targetPos < 0) {
+        return;
+    }
+
+    ordered[currentPos] = target;
+    ordered[targetPos] = props.selectedOperator;
+
+    ordered.forEach((op, i) => {
+        op.sort = i;
+    });
+
+    selectedOperators.value = ordered;
 };
+    
 
 const goalsCount = computed(() => {
     const plans = props.selectedOperator.plans;
