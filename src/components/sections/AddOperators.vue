@@ -25,16 +25,24 @@ const filteredCharacters = computed(() => {
         localeStartsWith(
             character.name.toLowerCase(),
             operatorFilter.value.toLowerCase()
-        )
-    ).sort(characterSort);
+            ) ||
+        (!!character.jpName && localeStartsWith(
+            character.jpName.toLowerCase(),
+            operatorFilter.value.toLowerCase()
+            ))
+        ).sort(characterSort);
 
     const contains = ops.filter(character =>
         !startsWith.includes(character) &&
-        localeContains(
+        (localeContains(
             character.name.toLowerCase(),
             operatorFilter.value.toLowerCase()
+            ) ||
+         (!!character.jpName && localeContains(
+             character.jpName.toLowerCase(),
+             operatorFilter.value.toLowerCase()
+             )))
         )
-    )
 
     return [...startsWith, ...contains];
 });
