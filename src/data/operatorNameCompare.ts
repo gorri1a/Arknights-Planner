@@ -1,7 +1,7 @@
 const getLocaleComparableString = (s: string) =>
     s.normalize("NFKD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^\p{L}\p{N}\s]/gu), ""
+        .replace(/[^\p{L}\p{N}\s]/gu, "")
         .toLowerCase();
 
 const localeStringSearch = (
