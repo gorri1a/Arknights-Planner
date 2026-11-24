@@ -32,7 +32,8 @@ const addOperator = (operator: Operator) => {
         </div>
         <div class="name">
             {{ operator.name }}
-        </div>
+            <div v-if="operator.jpName" class="jp-name">{{ operator.jpName }}</div>
+            </div>
     </div>
 </template>
 
@@ -48,6 +49,10 @@ const addOperator = (operator: Operator) => {
 .name {
     min-height: 4em;
 }
+    .jp-name {
+        font-size: 0.85em;
+        opacity: 0.75;
+    }
 
 img {
     height: 180px;
