@@ -32,6 +32,8 @@ const stages: { [key: string]: string } = {
     "31073": "13-5",            // Fuscous Fiber
     "31083": "13-15",           // Aggregate Cyclicene
     "31093": "15-9",            // Chiral Refractor
+    "31103": "17-5",            // Liquefied High-Energy Gas
+    "31113": "17-11",           // Electrode Unit
     "3301": "CA-5",             // Skill Summarry - 1
     "3302": "CA-5",             // Skill Summarry - 2
     "3303": "CA-5",             // Skill Summarry - 3
