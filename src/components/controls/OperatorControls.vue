@@ -68,7 +68,6 @@ const moveOperator = (direction: 'up' | 'down') => {
     selectedOperators.value = ordered;
 };
     
-
 const goalsCount = computed(() => {
     const plans = props.selectedOperator.plans;
 
