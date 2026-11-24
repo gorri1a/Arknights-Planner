@@ -32,3 +32,5 @@ If you run into an issue where the page stops working due to some invalid state 
  - https://docs.google.com/spreadsheets/d/12X0uBQaN7MuuMWWDTiUjIni_MOP015GnulggmBJgBaQ/
  - https://ak.gamepress.gg/news/arknights-material-farming-efficiency-best-stages-farm
  
+
+<!-- trigger Vite build -->
