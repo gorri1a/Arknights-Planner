@@ -1,6 +1,7 @@
 type Operator = {
     id: string;
     name: string;
+    jpName?: string;
     profession: string;
 
     rarity: "TIER_6" | "TIER_5" | "TIER_4" | "TIER_3" | "TIER_2" | "TIER_1";
