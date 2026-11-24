@@ -9,6 +9,7 @@ import { SelectedOperator, SaveRecord } from '@/types/planner-types';
 
 import type { LevelUpNeeds, Inventory, EventGains } from '@/types/planner-types';
 import type { Item, Operator } from '@/types/outputdata';
+import jpNames from '@/data/jp-names';
 
 export const usePlannerStore = defineStore('planner', () => {
     // Getters
@@ -34,6 +35,10 @@ export const usePlannerStore = defineStore('planner', () => {
     // Functions
     async function loadCharacters() {
         const data = await getArknightsData();
+
+        data.operators.forEach(operator => {
+            operator.jpName = jpNames[operator.id];
+        });
 
         operators.value = data.operators;
         items.value = data.items;
