@@ -421,6 +421,7 @@ const jpNames: { [operatorId: string]: string } = {
     "char_501_durin": "ドゥリン",
     "char_502_nblade": "ヤトウ",
     "char_503_rang": "レンジャー",
+    "char_4244_tocka":"トスカ"
 };
 
 export default jpNames;
